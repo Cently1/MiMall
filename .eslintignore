@@ -4,4 +4,4 @@
 /*.js
 /test/unit/coverage/
 /src/*.vue
-/src/*.js
+/src/**/*.js

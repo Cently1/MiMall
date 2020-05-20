@@ -1,11 +1,3 @@
-<!--
- * @Author: your name
- * @Date: 2020-05-10 19:10:17
- * @LastEditTime: 2020-05-15 23:06:06
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \MiMall\src\App.vue
- -->
 <template>
   <div id="app">
     <router-view/>
@@ -13,8 +5,7 @@
 </template>
 
 <script>
-
-import jsonp from 'jsonp'
+// import storage from './storage/index'
 export default {
   name: 'App',
   data(){
@@ -23,18 +14,27 @@ export default {
     }
   },
   mounted(){
+    // storage.setItem('hh',100);
+    // storage.setItem('user',{a:1});
+    // storage.setItem('abc',{a:1},'user');
+    // storage.clear('a','user')
+
+    //本地请求加载静态json文件的形式
+    // this.axios.get('/mock/user/login.json').then((res)=>{
+    //   this.res=res;
+    // })
     
+    //通过easy-mock
+    // this.axios.get('/user/login').then((res)=>{
+    //   console.log("我这边");
+      
+    //   this.res=res;
+    // })
+
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import './assets/scss/reset.scss'
 </style>
