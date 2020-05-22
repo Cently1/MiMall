@@ -12,9 +12,10 @@
           <a href="javascript:;">协议规则</a>
         </div>
         <div class="topbar-user">
-          <a href="javascript:;">登录</a>
-          <a href="javascript:;">注册</a>
-          <a href="javascript:;" class="my-cart"
+          <a href="javascript:;" v-if="username">{{ username }}</a>
+          <a href="javascript:;" v-if="!username" @click="login">登录</a>
+          <a href="javascript:;">我的订单</a>
+          <a href="javascript:;" class="my-cart" @click="goToCart"
             ><span class="icon-cart"></span>购物车</a
           >
         </div>
@@ -30,15 +31,17 @@
             <span>小米手机</span>
             <div class="children">
               <ul>
-                <li class="product">
-                  <a href="" target="_blank">
+                <li
+                  class="product"
+                  v-for="(item, index) in phoneList"
+                  :key="index"
+                >
+                  <a target="_blank" :href="'/#/product/' + item.id">
                     <div class="pri-img">
-                      <img
-                        src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/a4a76ee684e51f0ee531ef3dc7f0aeaf.png?thumb=1&w=160&h=110&f=webp&q=90"
-                      />
+                      <img :src="item.mainImage" :alt="item.subtitle" />
                     </div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">2799元</div>
+                    <div class="pro-name">{{ item.name }}</div>
+                    <div class="pro-price">{{ item.price | currency }}</div>
                   </a>
                 </li>
               </ul>
@@ -199,9 +202,7 @@
                 <li class="product">
                   <a href="" target="_blank">
                     <div class="pri-img">
-                      <img
-                        src="../assets/imgs/nav-img/nav-3-1.jpg"
-                      />
+                      <img src="../assets/imgs/nav-img/nav-3-1.jpg" />
                     </div>
                     <div class="pro-name">小米壁画电视 65英寸</div>
                     <div class="pro-price">6999元</div>
@@ -212,9 +213,7 @@
                 <li class="product">
                   <a href="" target="_blank">
                     <div class="pri-img">
-                      <img
-                        src="../assets/imgs/nav-img/nav-3-2.jpg"
-                      />
+                      <img src="../assets/imgs/nav-img/nav-3-2.jpg" />
                     </div>
                     <div class="pro-name">Redmi 红米电视 70英寸</div>
                     <div class="pro-price">2999元</div>
@@ -225,9 +224,7 @@
                 <li class="product">
                   <a href="" target="_blank">
                     <div class="pri-img">
-                      <img
-                        src="../assets/imgs/nav-img/nav-3-3.png"
-                      />
+                      <img src="../assets/imgs/nav-img/nav-3-3.png" />
                     </div>
                     <div class="pro-name">Redmi 智能电视 MAX 98"</div>
                     <div class="pro-price">¥19999元</div>
@@ -238,9 +235,7 @@
                 <li class="product">
                   <a href="" target="_blank">
                     <div class="pri-img">
-                      <img
-                        src="../assets/imgs/nav-img/nav-3-4.jpg"
-                      />
+                      <img src="../assets/imgs/nav-img/nav-3-4.jpg" />
                     </div>
                     <div class="pro-name">小米全面屏电视 55英寸</div>
                     <div class="pro-price">9399元</div>
@@ -251,9 +246,7 @@
                 <li class="product">
                   <a href="" target="_blank">
                     <div class="pri-img">
-                      <img
-                        src="../assets/imgs/nav-img/nav-3-5.jpg"
-                      />
+                      <img src="../assets/imgs/nav-img/nav-3-5.jpg" />
                     </div>
                     <div class="pro-name">小米电视4A 55英寸</div>
                     <div class="pro-price">2799元</div>
@@ -264,9 +257,7 @@
                 <li class="product">
                   <a href="" target="_blank">
                     <div class="pri-img">
-                      <img
-                        src="../assets/imgs/nav-img/nav-3-6.png"
-                      />
+                      <img src="../assets/imgs/nav-img/nav-3-6.png" />
                     </div>
                     <div class="pro-name">小米电视4A 32英寸</div>
                     <div class="pro-price">5799元</div>
@@ -302,29 +293,42 @@
 <script>
 export default {
   name: "nav-header",
-  data(){
-    return{
-      username:'jack',
-      phoneList:[]
+  data() {
+    return {
+      username: "jack",
+      phoneList: []
+    };
+  },
+  filters: {
+    currency(val) {
+      if (!val) return "0.00";
+      return "￥" + val.toFixed(2) + "元";
     }
   },
-  mounted(){
-  this.getProductList()
+  mounted() {
+    this.getProductList();
   },
-  methods:{
-    getProductList(){
-      this.axios.get('/products',{
-        params:{
-          categoryId:'100012'
-        }
-      }).then((res)=>{
-        if(res.list>6){
-          this.phoneList=res.list.slice(0,6);
-        }
-      })
+  methods: {
+    getProductList() {
+      this.axios
+        .get("/products", {
+          params: {
+            pageSize: 6
+          }
+        })
+        .then(res => {
+          if (res.list.length >= 6) {
+            this.phoneList = res.list.slice(4, 10);
+          }
+        });
+    },
+    login() {
+      this.$router.push("/login");
+    },
+    goToCart() {
+      this.$router.push("/cart");
     }
-  },
-  components: {}
+  }
 };
 </script>
 
@@ -404,22 +408,23 @@ export default {
           &:hover {
             color: $colorA;
             .children {
+              background-color:#fff;
               height: 220px;
-              opacity:1;
+              opacity: 1;
             }
           }
           .children {
             position: absolute;
             top: 112px;
             left: 0;
-            overflow:hidden;
+            overflow: hidden;
             width: 1226px;
             height: 0px;
             opacity: 0;
             border-top: 1px solid #e5e5e5;
             box-shadow: 0px 7px 6px rgba(0, 0, 0, 0.11);
-            z-index:10;
-            transition:all .5s;
+            z-index: 10;
+            transition: all 0.5s;
             .product {
               position: relative;
               float: left;
@@ -434,7 +439,7 @@ export default {
               img {
                 width: auto;
                 height: 110px;
-                margin-top:26px;
+                margin-top: 26px;
               }
               .pro-img {
                 height: 137px;
