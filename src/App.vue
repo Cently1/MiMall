@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-10 19:10:17
+ * @LastEditTime: 2020-05-27 21:51:00
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \mimall\src\App.vue
+--> 
 <template>
   <div id="app">
     <router-view/>
@@ -35,6 +43,8 @@ export default {
 }
 </script>
 
-<style>
-@import './assets/scss/reset.scss'
+<style lang="scss">
+@import './assets/scss/reset.scss';
+@import './assets/scss/config.scss';
+@import './assets/scss/button.scss';
 </style>
