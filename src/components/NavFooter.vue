@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-15 23:12:45
- * @LastEditTime: 2020-05-21 21:56:58
+ * @LastEditTime: 2020-05-29 16:17:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mimall\src\components\NavFooter.vue
@@ -29,7 +29,7 @@
 export default {};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .footer {
   height: 234px;
   border-top: 1px solid #ff7301;

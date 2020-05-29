@@ -1,19 +1,10 @@
-/*
- * @Author: your name
- * @Date: 2020-05-10 19:10:17
- * @LastEditTime: 2020-05-28 20:38:01
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \mimall\src\main.js
- */
-
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from "vue";
 import App from "./App";
 import router from "./router";
+import store from "./store";
 import VueAxios from "vue-axios";
 import axios from "axios";
+import VueCookie from "vue-cookie";
 import VueLazyLoad from "vue-lazyload";
 // import env from './env'
 
@@ -21,6 +12,8 @@ const mock = false;
 if (mock) {
   require("./mock/api");
 }
+
+Vue.config.devtools = true;
 
 //生产环境
 Vue.config.productionTip = false;
@@ -48,14 +41,18 @@ axios.defaults.timeout = 8000;
 //接口错误拦截
 axios.interceptors.response.use(function(response) {
   let res = response.data;
+  let path = location.hash;
   if (res.status == 0) {
     //0代表成功
     return res.data;
   } else if (res.status == 10) {
     //10代表未登录
-    window.location.href = "/#/login";
+    if (path != "#/index") {
+      window.location.href = "/#/login";
+    }
   } else {
     alert(res.msg);
+    return Promise.reject(res);
   }
 });
 
@@ -64,6 +61,7 @@ axios.interceptors.response.use(function(response) {
 
 //加载插件
 Vue.use(VueAxios, axios);
+Vue.use(VueCookie);
 Vue.use(VueLazyLoad, {
   loading: require("../src/assets/imgs/loading-svg/loading-bars.svg")
 });
@@ -71,6 +69,7 @@ Vue.use(VueLazyLoad, {
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
+  store,
   router,
   components: { App },
   template: "<App/>"

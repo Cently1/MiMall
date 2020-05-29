@@ -16,7 +16,7 @@
           <a href="javascript:;" v-if="!username" @click="login">登录</a>
           <a href="javascript:;">我的订单</a>
           <a href="javascript:;" class="my-cart" @click="goToCart"
-            ><span class="icon-cart"></span>购物车</a
+            ><span class="icon-cart"></span>购物车({{cartCount}})</a
           >
         </div>
       </div>
@@ -291,13 +291,26 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   name: "nav-header",
   data() {
     return {
-      username: "jack",
       phoneList: []
     };
+  },
+  // computed:{
+  //   ...mapState(['username','cartCount'])
+  // },
+  computed:{
+    /* username(){
+      return this.$store.state.username;
+    },
+    cartCount(){
+      return this.$store.state.cartCount;
+    } */
+    /**关于mapState的用法，他是Vuex里面的一个方法，主要是简化this.$store.state的写法，然后使用解构的语法，里面是一个数组，数组里面放的是字符串 */
+    ...mapState(["username","cartCount"])
   },
   filters: {
     currency(val) {
@@ -355,6 +368,7 @@ export default {
         background-color: #ff6600;
         text-align: center;
         color: #fff;
+        margin-right:0px;
         .icon-cart {
           @include bgImg(16px, 12px, "../assets/imgs/icon-cart-checked.png");
           margin-right: 4px;
