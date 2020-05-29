@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-27 15:36:11
- * @LastEditTime: 2020-05-27 23:26:39
+ * @LastEditTime: 2020-05-28 19:44:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mimall\src\components\Modal.vue
@@ -12,7 +12,7 @@
       <div class="mask"></div>
       <div class="modal-dialog">
         <div class="modal-header">
-          <span>标题</span>
+          <span>{{title}}</span>
           <a
             href="javascript:;"
             class="icon-close"
@@ -28,18 +28,18 @@
             class="btn"
             v-if="btnType == 1"
             @click="$emit('submit')"
-            >确定</a
+            >{{sureText}}</a
           >
           <a
             href="javascript:;"
             class="btn"
             v-if="btnType == 2"
             @click="$emit('cancel')"
-            >取消</a
+            >{{cancalText}}</a
           >
           <div class="btn-group" v-if="btnType == 3">
-            <a href="javascript:;" class="btn" @click="$emit('submit')">确定</a>
-            <a href="javascript:;" class="btn btn-default" @click="$emit('cancel')">取消</a>
+            <a href="javascript:;" class="btn" @click="$emit('submit')">{{sureText}}</a>
+            <a href="javascript:;" class="btn btn-default" @click="$emit('cancel')">{{cancalText}}</a>
           </div>
         </div>
       </div>

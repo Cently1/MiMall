@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-15 23:11:23
- * @LastEditTime: 2020-05-27 23:31:55
+ * @LastEditTime: 2020-05-28 21:31:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mimall\src\page\index.vue
@@ -71,7 +71,7 @@
           :href="'/#/product/' + item.id"
           v-for="(item, index) in adsList"
           :key="index"
-          ><img :src="item.img"
+          ><img v-lazy="item.img"
         /></a>
       </div>
       <div class="banner">
@@ -84,7 +84,7 @@
         <div class="wrapper">
           <div class="banner-left">
             <a href="/#product/35/"
-              ><img src="../assets/imgs/mix-alpha.jpg"
+              ><img v-lazy="'https://halen-blog-1252760404.cos.ap-chengdu.myqcloud.com/img/20200528213101.jpg'"
             /></a>
           </div>
           <div class="list-box">
@@ -92,7 +92,7 @@
               <div class="item" v-for="(item, j) in arr" :key="j">
                 <span :class="{ 'new-pro': j % 2 == 0 }">新品</span>
                 <div class="item-img">
-                  <img :src="item.mainImage" alt="" />
+                  <img v-lazy="item.mainImage" alt="" />
                 </div>
                 <div class="item-info">
                   <h3>{{ item.name }}</h3>
@@ -354,6 +354,7 @@ export default {
     a {
       width: 296px;
       height: 167px;
+
     }
   }
   .banner {
@@ -376,6 +377,10 @@ export default {
         img {
           width: 224px;
           height: 619px;
+          &:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transform: translate3d(0, -2px, 0);
+          }
         }
       }
       .list-box {
@@ -391,6 +396,10 @@ export default {
             height: 302px;
             background-color: #fff;
             text-align: center;
+            &:hover {
+              box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+              transform: translate3d(0, -2px, 0);
+            }
             span {
               display: inline-block;
               width: 67px;

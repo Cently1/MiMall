@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from "@/page/home.vue";
 import Index from "@/page/index.vue";
+import Login from "@/page/login.vue";
 import Product from "@/page/product.vue";
 import Cart from "@/page/cart.vue";
 import Order from "@/page/order.vue";
@@ -33,6 +34,11 @@ export default new Router({
         }
       ]
     },{
+      path:'/login',
+      name:'login',
+      component:Login
+    },
+    {
       path:'/cart',
       name:'cart',
       component:Cart
