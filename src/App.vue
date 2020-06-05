@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-10 19:10:17
- * @LastEditTime: 2020-05-29 22:26:01
+ * @LastEditTime: 2020-06-05 20:37:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mimall\src\App.vue
@@ -41,13 +41,13 @@ export default {
   },
   methods: {
     getUser() {
-      this.axios.get("/user").then(res => {
+      this.axios.get("/user").then((res ={})=> {
         //to-do保存到vuex里面
         this.$store.dispatch("saveUserName", res.username);
       });
     },
     getCartCount() {
-      this.axios.get("/carts/products/sum").then((res) => {
+      this.axios.get("/carts/products/sum").then((res=0) => {
         this.$store.dispatch("saveCartCount", res);
       });
     }

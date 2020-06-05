@@ -6,6 +6,8 @@ import VueAxios from "vue-axios";
 import axios from "axios";
 import VueCookie from "vue-cookie";
 import VueLazyLoad from "vue-lazyload";
+import { Message } from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
 // import env from './env'
 
 const mock = false;

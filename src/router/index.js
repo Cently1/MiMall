@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-05-10 19:10:17
+ * @LastEditTime: 2020-06-05 20:31:41
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \mimall\src\router\index.js
+ */ 
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from "@/page/home.vue";
@@ -30,7 +38,7 @@ export default new Router({
         },{
           path:'/detail/:id',
           name:'detail',
-          components:Detail
+          component:Detail
         }
       ]
     },{

@@ -5,7 +5,8 @@
     </div>
     <div class="wrapper">
       <div class="container">
-        <div class="login-form">
+        <!-- 登录  1  -->
+        <div class="login-form" v-if="type == 1">
           <h3>
             <span class="checked">账号登录</span>
             <span class="sep-line">|</span><span>扫码登录</span>
@@ -24,8 +25,117 @@
             <a href="JavaScript:;" class="btn" @click="login">登录</a>
           </div>
           <div class="tips">
-            <div class="sms" @click="register">手机短信登录/注册</div>
-            <div class="reg">立即注册<span>|</span>忘记密码?</div>
+            <div class="sms" @click="unUsed">手机短信登录/注册</div>
+
+            <div class="reg" @click="register">
+              <b @click="type = 2">立即注册</b>
+              <span>|</span>
+              <b @click="type = 3">忘记密码?</b>
+            </div>
+          </div>
+        </div>
+        <!-- 注册  2  -->
+        <div class="login-form" v-if="type == 2">
+          <h3>
+            <span class="checked">用户注册</span>
+          </h3>
+          <div class="input">
+            <input type="text" placeholder="请输入用户名" v-model="username" />
+          </div>
+          <div class="input">
+            <input
+              type="password"
+              placeholder="请输入密码"
+              v-model="password"
+            />
+          </div>
+          <div class="input">
+            <input
+              type="password"
+              placeholder="请再次输入密码"
+              v-model="repassword"
+            />
+          </div>
+          <div class="input">
+            <input
+              type="text"
+              placeholder="请输入手机号"
+              v-model="phone"
+              class="shrink"
+            />
+            <span class="line">|</span>
+            <input
+              type="text"
+              placeholder="输入验证码"
+              v-model="expires"
+              class="shrink"
+            />
+            <a href="">发送验证码</a>
+          </div>
+          <div class="btn-box">
+            <a href="JavaScript:;" class="btn" @click="login">注册</a>
+          </div>
+          <div class="tips">
+            <div class="sms">
+              <input type="checkbox" class="contact" />同意小米商城用户协议
+            </div>
+            <div class="reg" @click="register">
+              <b @click="type = 1">登录</b>
+              <span>|</span>
+              <b @click="type = 3">忘记密码?</b>
+            </div>
+          </div>
+        </div>
+        <!-- 忘记密码 -->
+        <div class="login-form" v-if="type == 3">
+          <h3>
+            <span class="checked">忘记密码</span>
+          </h3>
+          <div class="input">
+            <input type="text" placeholder="请输入用户名" v-model="username" />
+          </div>
+          <div class="input">
+            <input
+              type="text"
+              placeholder="请输入手机号"
+              v-model="phone"
+              class="shrink"
+            />
+            <span class="line">|</span>
+            <input
+              type="text"
+              placeholder="输入验证码"
+              v-model="expires"
+              class="shrink"
+            />
+            <a href="">发送验证码</a>
+          </div>
+          <div class="input">
+            <input
+              type="password"
+              placeholder="请输入密码"
+              v-model="password"
+            />
+          </div>
+          <div class="input">
+            <input
+              type="password"
+              placeholder="请再次输入密码"
+              v-model="repassword"
+            />
+          </div>
+          <div class="btn-box">
+            <a href="JavaScript:;" class="btn" @click="login">修改密码</a>
+          </div>
+          <div class="tips">
+            <div class="sms">
+              <input type="checkbox" class="contact" />同意小米商城用户协议
+            </div>
+            <div class="reg" @click="register">
+              <b @click="type = 1">登录</b>
+              <span>|</span>
+              <b @click="type = 3">忘记密码?</b>
+            </div>
           </div>
         </div>
       </div>
@@ -50,13 +160,15 @@
 </template>
 
 <script>
-// import {mapState} from 'vuex'
+import { Message } from "element-ui";
 export default {
   name: "login",
   data() {
     return {
+      type: 1, //登录 1 注册2 忘记密码3
       username: "",
       password: "",
+      repassword: "",
       userId: ""
     };
   },
@@ -70,28 +182,31 @@ export default {
         })
         .then(res => {
           this.$cookie.set("userId", res.id, { expires: "1M" });
-          this.$store.dispatch('saveUserName',res.username);
+          this.$store.dispatch("saveUserName", res.username);
           this.$router.push("/index");
         });
     },
+    unUsed() {
+      Message.warning("此功能暂未开通", { customClass: "message-logout" });
+    },
     register() {
-      let { username, password } = this;
-      this.axios
-        .post("/user/register", {
-          username: "",
-          password: "",
-          email: ""
-        })
-        .then(() => {
-          alert("注册成功");
-        });
+      // let { username, password } = this;
+      // this.axios
+      //   .post("/user/register", {
+      //     username: "",
+      //     password: "",
+      //     email: ""
+      //   })
+      //   .then(() => {
+      //     alert("注册成功");
+      //   });
     }
   }
 };
 </script>
 
 <style lang="scss">
-@import '../assets/scss/base.scss';
+@import "../assets/scss/base.scss";
 .login {
   & > .container {
     height: 113px;
@@ -139,6 +254,15 @@ export default {
             border: none;
             padding: 18px;
           }
+          .line {
+            font-size: 20px;
+          }
+          a {
+            color: #ff6600;
+          }
+          .shrink {
+            width: 128px;
+          }
         }
         .btn {
           width: 100%;
@@ -154,6 +278,9 @@ export default {
           cursor: pointer;
           .sms {
             color: #ff6600;
+            .contact {
+              margin: 0 5px;
+            }
           }
           .reg {
             color: #999999;

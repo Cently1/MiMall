@@ -1,16 +1,11 @@
 <template>
-    <div>
-        <nav-header></nav-header>
-        <router-view></router-view>
-        <nav-footer></nav-footer>
-    </div>
+  <div></div>
 </template>
 
 <script>
 export default {
     
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>
