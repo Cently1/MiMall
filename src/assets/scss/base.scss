@@ -1,6 +1,6 @@
-@import './mixin.scss';
+@import "./mixin.scss";
 .container {
-  position:relative;
+  position: relative;
   width: 1226px;
   margin-right: auto;
   margin-left: auto;
@@ -12,8 +12,47 @@ a {
   }
 }
 
-input{
-  outline:none;
-  box-sizing:border-box;
+input {
+  outline: none;
+  box-sizing: border-box;
   box-sizing: 14px;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+//公共logo
+.header-logo {
+  display: inline-block;
+  width: 55px;
+  height: 55px;
+  background-color: #ff6600;
+  a {
+    display: inline-block;
+    width: 110px;
+    height: 55px;
+    &:before {
+      content: " ";
+      @include bgImg(55px, 55px, "../assets/imgs/mi-logo.png", 55px);
+      transition: margin 0.2s;
+    }
+    &:after {
+      content: " ";
+      @include bgImg(55px, 55px, "../assets/imgs/mi-home.png", 55px);
+    }
+    &:hover:before {
+      margin-left: -55px;
+      transition: margin 0.2s;
+    }
+  }
 }

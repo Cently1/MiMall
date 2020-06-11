@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-15 23:11:23
- * @LastEditTime: 2020-05-28 21:31:21
+ * @LastEditTime: 2020-06-11 16:54:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mimall\src\page\index.vue
@@ -84,7 +84,10 @@
         <div class="wrapper">
           <div class="banner-left">
             <a href="/#product/35/"
-              ><img v-lazy="'https://halen-blog-1252760404.cos.ap-chengdu.myqcloud.com/img/20200528213101.jpg'"
+              ><img
+                v-lazy="
+                  'https://halen-blog-1252760404.cos.ap-chengdu.myqcloud.com/img/20200528213101.jpg'
+                "
             /></a>
           </div>
           <div class="list-box">
@@ -243,16 +246,18 @@ export default {
         });
     },
     addCart(id) {
-      this.showModal = true;
-      return;
-      // this.$axios.post('/carts',{
-      //   productId:id,
-      //   selected:true
-      // }).then(()=>{
-
-      // }).catch(()=>{
-      //   this.showModal=true;
-      // })
+      this.axios
+        .post("/carts", {
+          productId: id,
+          selected: true
+        })
+        .then((res) => {
+          this.showModal = true;
+          this.$store.dispatch("saveCartCount", res.cartTotalQuantity);
+        })
+        .catch(() => {
+          this.showModal = true;
+        });
     },
     gotoCart() {
       this.$router.push("/cart");
@@ -354,7 +359,6 @@ export default {
     a {
       width: 296px;
       height: 167px;
-
     }
   }
   .banner {

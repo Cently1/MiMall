@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-04 17:38:47
- * @LastEditTime: 2020-06-05 17:35:17
+ * @LastEditTime: 2020-06-10 23:02:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mimall\src\components\ProductParam.vue
 --> 
 <template>
-  <div class="nav-bar" :class="{ is_fixed: isFixed }">
+  <div class="nav-bar" :class="{'is_fixed': isFixed }">
     <div class="container">
       <div class="pro-title">
         {{title}}
@@ -59,12 +59,13 @@ export default {
   line-height: 70px;
   border-top: 1px solid #e5e5e5;
   background: #fff;
+  z-index:20;
 
   &.is_fixed {
     position: fixed;
     top: 0px;
     width: 100%;
-    box-shadow: 0px 5px 5px #fff;
+    box-shadow: 0px 5px 5px #ccc;
   }
   .container {
     @include flex();
